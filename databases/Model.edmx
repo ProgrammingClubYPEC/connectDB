@@ -1,0 +1,1488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="analyzer">
+          <Key>
+            <PropertyRef Name="analyzer_code" />
+          </Key>
+          <Property Name="analyzer_code" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="responsible_employee_login" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="biomaterials_tube">
+          <Key>
+            <PropertyRef Name="tube_code" />
+          </Key>
+          <Property Name="tube_code" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="check_for_insurance">
+          <Key>
+            <PropertyRef Name="check_code" />
+          </Key>
+          <Property Name="check_code" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sum" Type="money" Nullable="false" />
+          <Property Name="service_list" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="insurance_company">
+          <Key>
+            <PropertyRef Name="insurance_company_code" />
+          </Key>
+          <Property Name="insurance_company_code" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="inn" Type="bigint" Nullable="false" />
+          <Property Name="payment_account" Type="bigint" Nullable="false" />
+          <Property Name="bik" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "LaboratoryDataBase.dbo.issued_invoices" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="issued_invoices">
+          <Key>
+            <PropertyRef Name="login" />
+            <PropertyRef Name="check_code" />
+            <PropertyRef Name="insurance_company_code" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="check_code" Type="bigint" Nullable="false" />
+          <Property Name="insurance_company_code" Type="bigint" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="login_history">
+          <Key>
+            <PropertyRef Name="id_history" />
+          </Key>
+          <Property Name="id_history" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_data_time" Type="datetime" Nullable="false" />
+          <Property Name="attempt" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="order_code" />
+          </Key>
+          <Property Name="order_code" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="creation_date" Type="date" Nullable="false" />
+          <Property Name="customer_login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="employeer_login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="service_code" Type="bigint" Nullable="false" />
+          <Property Name="tube_code" Type="bigint" Nullable="false" />
+          <Property Name="order_status_code" Type="bigint" Nullable="false" />
+          <Property Name="service_status_code" Type="bigint" Nullable="false" />
+          <Property Name="days_to_complete" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order_status">
+          <Key>
+            <PropertyRef Name="status_code" />
+          </Key>
+          <Property Name="status_code" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="policy_type">
+          <Key>
+            <PropertyRef Name="policy_code" />
+          </Key>
+          <Property Name="policy_code" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rendered">
+          <Key>
+            <PropertyRef Name="render_code" />
+          </Key>
+          <Property Name="render_code" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="analyzer_code" Type="bigint" Nullable="false" />
+          <Property Name="emploee_login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="patient_login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="render_type" Type="bigint" Nullable="false" />
+          <Property Name="date_of_service" Type="datetime" Nullable="false" />
+          <Property Name="result" Type="int" Nullable="false" />
+          <Property Name="service_code" Type="bigint" Nullable="false" />
+          <Property Name="order_code" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rendered_type">
+          <Key>
+            <PropertyRef Name="render_type" />
+          </Key>
+          <Property Name="render_type" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="service_code" />
+          </Key>
+          <Property Name="service_code" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="price" Type="money" Nullable="false" />
+          <Property Name="deadline" Type="date" />
+          <Property Name="mean_deviation" Type="int" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "LaboratoryDataBase.dbo.service_set" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="service_set">
+          <Key>
+            <PropertyRef Name="login" />
+            <PropertyRef Name="service_code" />
+          </Key>
+          <Property Name="login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="service_code" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="service_status">
+          <Key>
+            <PropertyRef Name="status_code" />
+          </Key>
+          <Property Name="status_code" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="midname" Type="nvarchar" MaxLength="300" />
+          <Property Name="bithday" Type="datetime" />
+          <Property Name="code_role" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_confidential_data">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="passport_series" Type="int" Nullable="false" />
+          <Property Name="passport_id" Type="int" Nullable="false" />
+          <Property Name="insurance_policy_number" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="insurance_policy_type_code" Type="bigint" Nullable="false" />
+          <Property Name="insurance_company_code" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_contact">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="nchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="user_role">
+          <Key>
+            <PropertyRef Name="code_role" />
+          </Key>
+          <Property Name="code_role" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_analyzer_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="analyzer" Type="Self.analyzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="analyzer">
+              <PropertyRef Name="responsible_employee_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_issued_invoices_check_for_insurance">
+          <End Role="check_for_insurance" Type="Self.check_for_insurance" Multiplicity="1" />
+          <End Role="issued_invoices" Type="Self.issued_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="check_for_insurance">
+              <PropertyRef Name="check_code" />
+            </Principal>
+            <Dependent Role="issued_invoices">
+              <PropertyRef Name="check_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_issued_invoices_insurance_company">
+          <End Role="insurance_company" Type="Self.insurance_company" Multiplicity="1" />
+          <End Role="issued_invoices" Type="Self.issued_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insurance_company">
+              <PropertyRef Name="insurance_company_code" />
+            </Principal>
+            <Dependent Role="issued_invoices">
+              <PropertyRef Name="insurance_company_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_issued_invoices_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="issued_invoices" Type="Self.issued_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="issued_invoices">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_login_history_login1">
+          <End Role="login" Type="Self.login" Multiplicity="1" />
+          <End Role="login_history" Type="Self.login_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="login">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="login_history">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_biomaterials_tube">
+          <End Role="biomaterials_tube" Type="Self.biomaterials_tube" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="biomaterials_tube">
+              <PropertyRef Name="tube_code" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="tube_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_order_status">
+          <End Role="order_status" Type="Self.order_status" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order_status">
+              <PropertyRef Name="status_code" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="order_status_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_code" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="service_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_service_status">
+          <End Role="service_status" Type="Self.service_status" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_status">
+              <PropertyRef Name="status_code" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="service_status_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="customer_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_user1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="employeer_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_analyzer">
+          <End Role="analyzer" Type="Self.analyzer" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="analyzer">
+              <PropertyRef Name="analyzer_code" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="analyzer_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_laborant">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="emploee_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="order_code" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="order_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_patient">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="patient_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_rendered_type">
+          <End Role="rendered_type" Type="Self.rendered_type" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rendered_type">
+              <PropertyRef Name="render_type" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="render_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_code" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="service_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_service_set_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="service_set" Type="Self.service_set" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_code" />
+            </Principal>
+            <Dependent Role="service_set">
+              <PropertyRef Name="service_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_service_set_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="service_set" Type="Self.service_set" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="service_set">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_confidential_data_insurance_company">
+          <End Role="insurance_company" Type="Self.insurance_company" Multiplicity="1" />
+          <End Role="user_confidential_data" Type="Self.user_confidential_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insurance_company">
+              <PropertyRef Name="insurance_company_code" />
+            </Principal>
+            <Dependent Role="user_confidential_data">
+              <PropertyRef Name="insurance_company_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_confidential_data_policy_type">
+          <End Role="policy_type" Type="Self.policy_type" Multiplicity="1" />
+          <End Role="user_confidential_data" Type="Self.user_confidential_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="policy_type">
+              <PropertyRef Name="policy_code" />
+            </Principal>
+            <Dependent Role="user_confidential_data">
+              <PropertyRef Name="insurance_policy_type_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_confidential_data_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_confidential_data" Type="Self.user_confidential_data" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user_confidential_data">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_contact_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_contact" Type="Self.user_contact" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user_contact">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_login">
+          <End Role="login" Type="Self.login" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="login">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="code_role" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="code_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="analyzer" EntityType="Self.analyzer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="biomaterials_tube" EntityType="Self.biomaterials_tube" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="check_for_insurance" EntityType="Self.check_for_insurance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="insurance_company" EntityType="Self.insurance_company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="login" EntityType="Self.login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="login_history" EntityType="Self.login_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_status" EntityType="Self.order_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="policy_type" EntityType="Self.policy_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rendered" EntityType="Self.rendered" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rendered_type" EntityType="Self.rendered_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="service_status" EntityType="Self.service_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_confidential_data" EntityType="Self.user_confidential_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_contact" EntityType="Self.user_contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_role" EntityType="Self.user_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="issued_invoices" EntityType="Self.issued_invoices" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [issued_invoices].[login] AS [login], 
+    [issued_invoices].[check_code] AS [check_code], 
+    [issued_invoices].[insurance_company_code] AS [insurance_company_code], 
+    [issued_invoices].[date] AS [date]
+    FROM [dbo].[issued_invoices] AS [issued_invoices]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="service_set" EntityType="Self.service_set" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [service_set].[login] AS [login], 
+    [service_set].[service_code] AS [service_code]
+    FROM [dbo].[service_set] AS [service_set]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_analyzer_user" Association="Self.FK_analyzer_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="analyzer" EntitySet="analyzer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_issued_invoices_check_for_insurance" Association="Self.FK_issued_invoices_check_for_insurance">
+            <End Role="check_for_insurance" EntitySet="check_for_insurance" />
+            <End Role="issued_invoices" EntitySet="issued_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_issued_invoices_insurance_company" Association="Self.FK_issued_invoices_insurance_company">
+            <End Role="insurance_company" EntitySet="insurance_company" />
+            <End Role="issued_invoices" EntitySet="issued_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_issued_invoices_user" Association="Self.FK_issued_invoices_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="issued_invoices" EntitySet="issued_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_login_history_login1" Association="Self.FK_login_history_login1">
+            <End Role="login" EntitySet="login" />
+            <End Role="login_history" EntitySet="login_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_biomaterials_tube" Association="Self.FK_order_biomaterials_tube">
+            <End Role="biomaterials_tube" EntitySet="biomaterials_tube" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_order_status" Association="Self.FK_order_order_status">
+            <End Role="order_status" EntitySet="order_status" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_service" Association="Self.FK_order_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_service_status" Association="Self.FK_order_service_status">
+            <End Role="service_status" EntitySet="service_status" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_user" Association="Self.FK_order_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_user1" Association="Self.FK_order_user1">
+            <End Role="user" EntitySet="user" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_analyzer" Association="Self.FK_rendered_analyzer">
+            <End Role="analyzer" EntitySet="analyzer" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_laborant" Association="Self.FK_rendered_laborant">
+            <End Role="user" EntitySet="user" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_order" Association="Self.FK_rendered_order">
+            <End Role="order" EntitySet="order" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_patient" Association="Self.FK_rendered_patient">
+            <End Role="user" EntitySet="user" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_rendered_type" Association="Self.FK_rendered_rendered_type">
+            <End Role="rendered_type" EntitySet="rendered_type" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_service" Association="Self.FK_rendered_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_service_set_service" Association="Self.FK_service_set_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="service_set" EntitySet="service_set" />
+          </AssociationSet>
+          <AssociationSet Name="FK_service_set_user" Association="Self.FK_service_set_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="service_set" EntitySet="service_set" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_confidential_data_insurance_company" Association="Self.FK_user_confidential_data_insurance_company">
+            <End Role="insurance_company" EntitySet="insurance_company" />
+            <End Role="user_confidential_data" EntitySet="user_confidential_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_confidential_data_policy_type" Association="Self.FK_user_confidential_data_policy_type">
+            <End Role="policy_type" EntitySet="policy_type" />
+            <End Role="user_confidential_data" EntitySet="user_confidential_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_confidential_data_user" Association="Self.FK_user_confidential_data_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_confidential_data" EntitySet="user_confidential_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_contact_user" Association="Self.FK_user_contact_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_contact" EntitySet="user_contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_login" Association="Self.FK_user_login">
+            <End Role="login" EntitySet="login" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_user_role" Association="Self.FK_user_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="analyzer">
+          <Key>
+            <PropertyRef Name="analyzer_code" />
+          </Key>
+          <Property Name="analyzer_code" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="responsible_employee_login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_analyzer_user" FromRole="analyzer" ToRole="user" />
+          <NavigationProperty Name="rendered" Relationship="Self.FK_rendered_analyzer" FromRole="analyzer" ToRole="rendered" />
+        </EntityType>
+        <EntityType Name="biomaterials_tube">
+          <Key>
+            <PropertyRef Name="tube_code" />
+          </Key>
+          <Property Name="tube_code" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_biomaterials_tube" FromRole="biomaterials_tube" ToRole="order" />
+        </EntityType>
+        <EntityType Name="check_for_insurance">
+          <Key>
+            <PropertyRef Name="check_code" />
+          </Key>
+          <Property Name="check_code" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sum" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="service_list" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="issued_invoices" Relationship="Self.FK_issued_invoices_check_for_insurance" FromRole="check_for_insurance" ToRole="issued_invoices" />
+        </EntityType>
+        <EntityType Name="insurance_company">
+          <Key>
+            <PropertyRef Name="insurance_company_code" />
+          </Key>
+          <Property Name="insurance_company_code" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="inn" Type="Int64" Nullable="false" />
+          <Property Name="payment_account" Type="Int64" Nullable="false" />
+          <Property Name="bik" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="issued_invoices" Relationship="Self.FK_issued_invoices_insurance_company" FromRole="insurance_company" ToRole="issued_invoices" />
+          <NavigationProperty Name="user_confidential_data" Relationship="Self.FK_user_confidential_data_insurance_company" FromRole="insurance_company" ToRole="user_confidential_data" />
+        </EntityType>
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="login1" />
+          </Key>
+          <Property Name="login1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="login_history" Relationship="Self.FK_login_history_login1" FromRole="login" ToRole="login_history" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_login" FromRole="login" ToRole="user" />
+        </EntityType>
+        <EntityType Name="login_history">
+          <Key>
+            <PropertyRef Name="id_history" />
+          </Key>
+          <Property Name="id_history" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="last_data_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="attempt" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="login1" Relationship="Self.FK_login_history_login1" FromRole="login_history" ToRole="login" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="order_code" />
+          </Key>
+          <Property Name="order_code" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="creation_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="customer_login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="employeer_login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="service_code" Type="Int64" Nullable="false" />
+          <Property Name="tube_code" Type="Int64" Nullable="false" />
+          <Property Name="order_status_code" Type="Int64" Nullable="false" />
+          <Property Name="service_status_code" Type="Int64" Nullable="false" />
+          <Property Name="days_to_complete" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="biomaterials_tube" Relationship="Self.FK_order_biomaterials_tube" FromRole="order" ToRole="biomaterials_tube" />
+          <NavigationProperty Name="order_status" Relationship="Self.FK_order_order_status" FromRole="order" ToRole="order_status" />
+          <NavigationProperty Name="service" Relationship="Self.FK_order_service" FromRole="order" ToRole="service" />
+          <NavigationProperty Name="service_status" Relationship="Self.FK_order_service_status" FromRole="order" ToRole="service_status" />
+          <NavigationProperty Name="user" Relationship="Self.FK_order_user" FromRole="order" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="Self.FK_order_user1" FromRole="order" ToRole="user" />
+          <NavigationProperty Name="rendered" Relationship="Self.FK_rendered_order" FromRole="order" ToRole="rendered" />
+        </EntityType>
+        <EntityType Name="order_status">
+          <Key>
+            <PropertyRef Name="status_code" />
+          </Key>
+          <Property Name="status_code" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_order_status" FromRole="order_status" ToRole="order" />
+        </EntityType>
+        <EntityType Name="policy_type">
+          <Key>
+            <PropertyRef Name="policy_code" />
+          </Key>
+          <Property Name="policy_code" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user_confidential_data" Relationship="Self.FK_user_confidential_data_policy_type" FromRole="policy_type" ToRole="user_confidential_data" />
+        </EntityType>
+        <EntityType Name="rendered">
+          <Key>
+            <PropertyRef Name="render_code" />
+          </Key>
+          <Property Name="render_code" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="analyzer_code" Type="Int64" Nullable="false" />
+          <Property Name="emploee_login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="patient_login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="render_type" Type="Int64" Nullable="false" />
+          <Property Name="date_of_service" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="result" Type="Int32" Nullable="false" />
+          <Property Name="service_code" Type="Int64" Nullable="false" />
+          <Property Name="order_code" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="analyzer" Relationship="Self.FK_rendered_analyzer" FromRole="rendered" ToRole="analyzer" />
+          <NavigationProperty Name="order" Relationship="Self.FK_rendered_order" FromRole="rendered" ToRole="order" />
+          <NavigationProperty Name="user" Relationship="Self.FK_rendered_laborant" FromRole="rendered" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="Self.FK_rendered_patient" FromRole="rendered" ToRole="user" />
+          <NavigationProperty Name="rendered_type" Relationship="Self.FK_rendered_rendered_type" FromRole="rendered" ToRole="rendered_type" />
+          <NavigationProperty Name="service" Relationship="Self.FK_rendered_service" FromRole="rendered" ToRole="service" />
+        </EntityType>
+        <EntityType Name="rendered_type">
+          <Key>
+            <PropertyRef Name="render_type" />
+          </Key>
+          <Property Name="render_type" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="rendered" Relationship="Self.FK_rendered_rendered_type" FromRole="rendered_type" ToRole="rendered" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="service_code" />
+          </Key>
+          <Property Name="service_code" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="deadline" Type="DateTime" Precision="0" />
+          <Property Name="mean_deviation" Type="Int32" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_service" FromRole="service" ToRole="order" />
+          <NavigationProperty Name="rendered" Relationship="Self.FK_rendered_service" FromRole="service" ToRole="rendered" />
+          <NavigationProperty Name="user" Relationship="Self.service_set" FromRole="service" ToRole="user" />
+        </EntityType>
+        <EntityType Name="service_status">
+          <Key>
+            <PropertyRef Name="status_code" />
+          </Key>
+          <Property Name="status_code" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_service_status" FromRole="service_status" ToRole="order" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="midname" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="bithday" Type="DateTime" Precision="3" />
+          <Property Name="code_role" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="analyzer" Relationship="Self.FK_analyzer_user" FromRole="user" ToRole="analyzer" />
+          <NavigationProperty Name="login1" Relationship="Self.FK_user_login" FromRole="user" ToRole="login" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_user" FromRole="user" ToRole="order" />
+          <NavigationProperty Name="order1" Relationship="Self.FK_order_user1" FromRole="user" ToRole="order" />
+          <NavigationProperty Name="rendered" Relationship="Self.FK_rendered_laborant" FromRole="user" ToRole="rendered" />
+          <NavigationProperty Name="rendered1" Relationship="Self.FK_rendered_patient" FromRole="user" ToRole="rendered" />
+          <NavigationProperty Name="issued_invoices" Relationship="Self.FK_issued_invoices_user" FromRole="user" ToRole="issued_invoices" />
+          <NavigationProperty Name="user_confidential_data" Relationship="Self.FK_user_confidential_data_user" FromRole="user" ToRole="user_confidential_data" />
+          <NavigationProperty Name="user_contact" Relationship="Self.FK_user_contact_user" FromRole="user" ToRole="user_contact" />
+          <NavigationProperty Name="user_role" Relationship="Self.FK_user_user_role" FromRole="user" ToRole="user_role" />
+          <NavigationProperty Name="service" Relationship="Self.service_set" FromRole="user" ToRole="service" />
+        </EntityType>
+        <EntityType Name="user_confidential_data">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="passport_series" Type="Int32" Nullable="false" />
+          <Property Name="passport_id" Type="Int32" Nullable="false" />
+          <Property Name="insurance_policy_number" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="insurance_policy_type_code" Type="Int64" Nullable="false" />
+          <Property Name="insurance_company_code" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="insurance_company" Relationship="Self.FK_user_confidential_data_insurance_company" FromRole="user_confidential_data" ToRole="insurance_company" />
+          <NavigationProperty Name="policy_type" Relationship="Self.FK_user_confidential_data_policy_type" FromRole="user_confidential_data" ToRole="policy_type" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_confidential_data_user" FromRole="user_confidential_data" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user_contact">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_contact_user" FromRole="user_contact" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user_role">
+          <Key>
+            <PropertyRef Name="code_role" />
+          </Key>
+          <Property Name="code_role" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_user_role" FromRole="user_role" ToRole="user" />
+        </EntityType>
+        <EntityType Name="issued_invoices">
+          <Key>
+            <PropertyRef Name="login" />
+            <PropertyRef Name="check_code" />
+            <PropertyRef Name="insurance_company_code" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="check_code" Type="Int64" Nullable="false" />
+          <Property Name="insurance_company_code" Type="Int64" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="check_for_insurance" Relationship="Self.FK_issued_invoices_check_for_insurance" FromRole="issued_invoices" ToRole="check_for_insurance" />
+          <NavigationProperty Name="insurance_company" Relationship="Self.FK_issued_invoices_insurance_company" FromRole="issued_invoices" ToRole="insurance_company" />
+          <NavigationProperty Name="user" Relationship="Self.FK_issued_invoices_user" FromRole="issued_invoices" ToRole="user" />
+        </EntityType>
+        <Association Name="FK_analyzer_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="analyzer" Type="Self.analyzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="analyzer">
+              <PropertyRef Name="responsible_employee_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_analyzer">
+          <End Role="analyzer" Type="Self.analyzer" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="analyzer">
+              <PropertyRef Name="analyzer_code" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="analyzer_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_biomaterials_tube">
+          <End Role="biomaterials_tube" Type="Self.biomaterials_tube" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="biomaterials_tube">
+              <PropertyRef Name="tube_code" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="tube_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_issued_invoices_check_for_insurance">
+          <End Role="check_for_insurance" Type="Self.check_for_insurance" Multiplicity="1" />
+          <End Role="issued_invoices" Type="Self.issued_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="check_for_insurance">
+              <PropertyRef Name="check_code" />
+            </Principal>
+            <Dependent Role="issued_invoices">
+              <PropertyRef Name="check_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_issued_invoices_insurance_company">
+          <End Role="insurance_company" Type="Self.insurance_company" Multiplicity="1" />
+          <End Role="issued_invoices" Type="Self.issued_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insurance_company">
+              <PropertyRef Name="insurance_company_code" />
+            </Principal>
+            <Dependent Role="issued_invoices">
+              <PropertyRef Name="insurance_company_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_confidential_data_insurance_company">
+          <End Role="insurance_company" Type="Self.insurance_company" Multiplicity="1" />
+          <End Role="user_confidential_data" Type="Self.user_confidential_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insurance_company">
+              <PropertyRef Name="insurance_company_code" />
+            </Principal>
+            <Dependent Role="user_confidential_data">
+              <PropertyRef Name="insurance_company_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_login_history_login1">
+          <End Role="login" Type="Self.login" Multiplicity="1" />
+          <End Role="login_history" Type="Self.login_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="login">
+              <PropertyRef Name="login1" />
+            </Principal>
+            <Dependent Role="login_history">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_login">
+          <End Role="login" Type="Self.login" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="login">
+              <PropertyRef Name="login1" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_order_status">
+          <End Role="order_status" Type="Self.order_status" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order_status">
+              <PropertyRef Name="status_code" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="order_status_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_code" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="service_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_service_status">
+          <End Role="service_status" Type="Self.service_status" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_status">
+              <PropertyRef Name="status_code" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="service_status_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="customer_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_user1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="employeer_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="order_code" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="order_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_confidential_data_policy_type">
+          <End Role="policy_type" Type="Self.policy_type" Multiplicity="1" />
+          <End Role="user_confidential_data" Type="Self.user_confidential_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="policy_type">
+              <PropertyRef Name="policy_code" />
+            </Principal>
+            <Dependent Role="user_confidential_data">
+              <PropertyRef Name="insurance_policy_type_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_laborant">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="emploee_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_patient">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="patient_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_rendered_type">
+          <End Role="rendered_type" Type="Self.rendered_type" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rendered_type">
+              <PropertyRef Name="render_type" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="render_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rendered_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="rendered" Type="Self.rendered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_code" />
+            </Principal>
+            <Dependent Role="rendered">
+              <PropertyRef Name="service_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_issued_invoices_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="issued_invoices" Type="Self.issued_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="issued_invoices">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_confidential_data_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_confidential_data" Type="Self.user_confidential_data" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user_confidential_data">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_contact_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_contact" Type="Self.user_contact" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user_contact">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="code_role" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="code_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="service_set">
+          <End Role="service" Type="Self.service" Multiplicity="*" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="analyzer" EntityType="Self.analyzer" />
+          <EntitySet Name="biomaterials_tube" EntityType="Self.biomaterials_tube" />
+          <EntitySet Name="check_for_insurance" EntityType="Self.check_for_insurance" />
+          <EntitySet Name="insurance_company" EntityType="Self.insurance_company" />
+          <EntitySet Name="login" EntityType="Self.login" />
+          <EntitySet Name="login_history" EntityType="Self.login_history" />
+          <EntitySet Name="order" EntityType="Self.order" />
+          <EntitySet Name="order_status" EntityType="Self.order_status" />
+          <EntitySet Name="policy_type" EntityType="Self.policy_type" />
+          <EntitySet Name="rendered" EntityType="Self.rendered" />
+          <EntitySet Name="rendered_type" EntityType="Self.rendered_type" />
+          <EntitySet Name="service" EntityType="Self.service" />
+          <EntitySet Name="service_status" EntityType="Self.service_status" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <EntitySet Name="user_confidential_data" EntityType="Self.user_confidential_data" />
+          <EntitySet Name="user_contact" EntityType="Self.user_contact" />
+          <EntitySet Name="user_role" EntityType="Self.user_role" />
+          <EntitySet Name="issued_invoices" EntityType="Self.issued_invoices" />
+          <AssociationSet Name="FK_analyzer_user" Association="Self.FK_analyzer_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="analyzer" EntitySet="analyzer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_analyzer" Association="Self.FK_rendered_analyzer">
+            <End Role="analyzer" EntitySet="analyzer" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_biomaterials_tube" Association="Self.FK_order_biomaterials_tube">
+            <End Role="biomaterials_tube" EntitySet="biomaterials_tube" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_issued_invoices_check_for_insurance" Association="Self.FK_issued_invoices_check_for_insurance">
+            <End Role="check_for_insurance" EntitySet="check_for_insurance" />
+            <End Role="issued_invoices" EntitySet="issued_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_issued_invoices_insurance_company" Association="Self.FK_issued_invoices_insurance_company">
+            <End Role="insurance_company" EntitySet="insurance_company" />
+            <End Role="issued_invoices" EntitySet="issued_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_confidential_data_insurance_company" Association="Self.FK_user_confidential_data_insurance_company">
+            <End Role="insurance_company" EntitySet="insurance_company" />
+            <End Role="user_confidential_data" EntitySet="user_confidential_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_login_history_login1" Association="Self.FK_login_history_login1">
+            <End Role="login" EntitySet="login" />
+            <End Role="login_history" EntitySet="login_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_login" Association="Self.FK_user_login">
+            <End Role="login" EntitySet="login" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_order_status" Association="Self.FK_order_order_status">
+            <End Role="order_status" EntitySet="order_status" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_service" Association="Self.FK_order_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_service_status" Association="Self.FK_order_service_status">
+            <End Role="service_status" EntitySet="service_status" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_user" Association="Self.FK_order_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_user1" Association="Self.FK_order_user1">
+            <End Role="user" EntitySet="user" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_order" Association="Self.FK_rendered_order">
+            <End Role="order" EntitySet="order" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_confidential_data_policy_type" Association="Self.FK_user_confidential_data_policy_type">
+            <End Role="policy_type" EntitySet="policy_type" />
+            <End Role="user_confidential_data" EntitySet="user_confidential_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_laborant" Association="Self.FK_rendered_laborant">
+            <End Role="user" EntitySet="user" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_patient" Association="Self.FK_rendered_patient">
+            <End Role="user" EntitySet="user" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_rendered_type" Association="Self.FK_rendered_rendered_type">
+            <End Role="rendered_type" EntitySet="rendered_type" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rendered_service" Association="Self.FK_rendered_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="rendered" EntitySet="rendered" />
+          </AssociationSet>
+          <AssociationSet Name="FK_issued_invoices_user" Association="Self.FK_issued_invoices_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="issued_invoices" EntitySet="issued_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_confidential_data_user" Association="Self.FK_user_confidential_data_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_confidential_data" EntitySet="user_confidential_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_contact_user" Association="Self.FK_user_contact_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_contact" EntitySet="user_contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_user_role" Association="Self.FK_user_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="service_set" Association="Self.service_set">
+            <End Role="service" EntitySet="service" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="analyzer">
+            <EntityTypeMapping TypeName="Model.analyzer">
+              <MappingFragment StoreEntitySet="analyzer">
+                <ScalarProperty Name="analyzer_code" ColumnName="analyzer_code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="responsible_employee_login" ColumnName="responsible_employee_login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="biomaterials_tube">
+            <EntityTypeMapping TypeName="Model.biomaterials_tube">
+              <MappingFragment StoreEntitySet="biomaterials_tube">
+                <ScalarProperty Name="tube_code" ColumnName="tube_code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="check_for_insurance">
+            <EntityTypeMapping TypeName="Model.check_for_insurance">
+              <MappingFragment StoreEntitySet="check_for_insurance">
+                <ScalarProperty Name="check_code" ColumnName="check_code" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="service_list" ColumnName="service_list" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="insurance_company">
+            <EntityTypeMapping TypeName="Model.insurance_company">
+              <MappingFragment StoreEntitySet="insurance_company">
+                <ScalarProperty Name="insurance_company_code" ColumnName="insurance_company_code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="inn" ColumnName="inn" />
+                <ScalarProperty Name="payment_account" ColumnName="payment_account" />
+                <ScalarProperty Name="bik" ColumnName="bik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="login">
+            <EntityTypeMapping TypeName="Model.login">
+              <MappingFragment StoreEntitySet="login">
+                <ScalarProperty Name="login1" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="login_history">
+            <EntityTypeMapping TypeName="Model.login_history">
+              <MappingFragment StoreEntitySet="login_history">
+                <ScalarProperty Name="id_history" ColumnName="id_history" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="last_data_time" ColumnName="last_data_time" />
+                <ScalarProperty Name="attempt" ColumnName="attempt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order">
+            <EntityTypeMapping TypeName="Model.order">
+              <MappingFragment StoreEntitySet="order">
+                <ScalarProperty Name="order_code" ColumnName="order_code" />
+                <ScalarProperty Name="creation_date" ColumnName="creation_date" />
+                <ScalarProperty Name="customer_login" ColumnName="customer_login" />
+                <ScalarProperty Name="employeer_login" ColumnName="employeer_login" />
+                <ScalarProperty Name="service_code" ColumnName="service_code" />
+                <ScalarProperty Name="tube_code" ColumnName="tube_code" />
+                <ScalarProperty Name="order_status_code" ColumnName="order_status_code" />
+                <ScalarProperty Name="service_status_code" ColumnName="service_status_code" />
+                <ScalarProperty Name="days_to_complete" ColumnName="days_to_complete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_status">
+            <EntityTypeMapping TypeName="Model.order_status">
+              <MappingFragment StoreEntitySet="order_status">
+                <ScalarProperty Name="status_code" ColumnName="status_code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="policy_type">
+            <EntityTypeMapping TypeName="Model.policy_type">
+              <MappingFragment StoreEntitySet="policy_type">
+                <ScalarProperty Name="policy_code" ColumnName="policy_code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rendered">
+            <EntityTypeMapping TypeName="Model.rendered">
+              <MappingFragment StoreEntitySet="rendered">
+                <ScalarProperty Name="render_code" ColumnName="render_code" />
+                <ScalarProperty Name="analyzer_code" ColumnName="analyzer_code" />
+                <ScalarProperty Name="emploee_login" ColumnName="emploee_login" />
+                <ScalarProperty Name="patient_login" ColumnName="patient_login" />
+                <ScalarProperty Name="render_type" ColumnName="render_type" />
+                <ScalarProperty Name="date_of_service" ColumnName="date_of_service" />
+                <ScalarProperty Name="result" ColumnName="result" />
+                <ScalarProperty Name="service_code" ColumnName="service_code" />
+                <ScalarProperty Name="order_code" ColumnName="order_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rendered_type">
+            <EntityTypeMapping TypeName="Model.rendered_type">
+              <MappingFragment StoreEntitySet="rendered_type">
+                <ScalarProperty Name="render_type" ColumnName="render_type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="service">
+            <EntityTypeMapping TypeName="Model.service">
+              <MappingFragment StoreEntitySet="service">
+                <ScalarProperty Name="service_code" ColumnName="service_code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="deadline" ColumnName="deadline" />
+                <ScalarProperty Name="mean_deviation" ColumnName="mean_deviation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="service_status">
+            <EntityTypeMapping TypeName="Model.service_status">
+              <MappingFragment StoreEntitySet="service_status">
+                <ScalarProperty Name="status_code" ColumnName="status_code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="Model.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="midname" ColumnName="midname" />
+                <ScalarProperty Name="bithday" ColumnName="bithday" />
+                <ScalarProperty Name="code_role" ColumnName="code_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_confidential_data">
+            <EntityTypeMapping TypeName="Model.user_confidential_data">
+              <MappingFragment StoreEntitySet="user_confidential_data">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="passport_series" ColumnName="passport_series" />
+                <ScalarProperty Name="passport_id" ColumnName="passport_id" />
+                <ScalarProperty Name="insurance_policy_number" ColumnName="insurance_policy_number" />
+                <ScalarProperty Name="insurance_policy_type_code" ColumnName="insurance_policy_type_code" />
+                <ScalarProperty Name="insurance_company_code" ColumnName="insurance_company_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_contact">
+            <EntityTypeMapping TypeName="Model.user_contact">
+              <MappingFragment StoreEntitySet="user_contact">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_role">
+            <EntityTypeMapping TypeName="Model.user_role">
+              <MappingFragment StoreEntitySet="user_role">
+                <ScalarProperty Name="code_role" ColumnName="code_role" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="issued_invoices">
+            <EntityTypeMapping TypeName="Model.issued_invoices">
+              <MappingFragment StoreEntitySet="issued_invoices">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="check_code" ColumnName="check_code" />
+                <ScalarProperty Name="insurance_company_code" ColumnName="insurance_company_code" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="service_set" TypeName="Model.service_set" StoreEntitySet="service_set">
+            <EndProperty Name="service">
+              <ScalarProperty Name="service_code" ColumnName="service_code" />
+            </EndProperty>
+            <EndProperty Name="user">
+              <ScalarProperty Name="login" ColumnName="login" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

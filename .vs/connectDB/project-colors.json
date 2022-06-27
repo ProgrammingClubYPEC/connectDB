@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "c9f362ec-5847-4062-babf-26ff5f8b95e6": {
+      "ProjectGuid": "c9f362ec-5847-4062-babf-26ff5f8b95e6",
+      "DisplayName": "connectDB",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
